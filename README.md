@@ -10,11 +10,9 @@ Four variants are currently presented, the first being a reconstruction of the P
 
 Also acts as a "demo" / proof-of-concept exercise for the YAGP parser library.
 
-
 The PAF screen:
-[[https://github.com/fire-eggs/FamilyView/blob/master/img/paf_lincoln.PNG|alt=octocat]]
+![](img/paf_lincoln.PNG)
 
 This project's "Variant 1" (as of first commit):
-[[https://github.com/fire-eggs/FamilyView/blob/master/img/fv_v1_lincoln.PNG|alt=octocat]]
-
+![](img/fv_v1_lincoln.PNG)
 
