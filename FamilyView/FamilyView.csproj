@@ -67,6 +67,12 @@
     <Compile Include="TBox.Designer.cs">
       <DependentUpon>TBox.cs</DependentUpon>
     </Compile>
+    <Compile Include="PersonDataBox.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="PersonDataBox.Designer.cs">
+      <DependentUpon>PersonDataBox.cs</DependentUpon>
+    </Compile>
     <Compile Include="View1.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -105,7 +111,11 @@
     <Compile Include="Properties\Resources.Designer.cs">
       <AutoGen>True</AutoGen>
       <DependentUpon>Resources.resx</DependentUpon>
+      <DesignTime>True</DesignTime>
     </Compile>
+    <EmbeddedResource Include="PersonDataBox.resx">
+      <DependentUpon>PersonDataBox.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="View1.resx">
       <DependentUpon>View1.cs</DependentUpon>
     </EmbeddedResource>
@@ -130,6 +140,16 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="notes-icon_32.png" />
+    <None Include="Resources\Notepad-Bloc-notes-icon_24.png" />
+    <None Include="Resources\Photography-icon_24.png" />
+    <None Include="Resources\Picture-icon_24.png" />
+    <None Include="Resources\notes-icon2_24.png" />
+    <None Include="Resources\Notes-icon_24.png" />
+    <None Include="Resources\book-icon_24.png" />
+    <None Include="Resources\Notes-icon2_32.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

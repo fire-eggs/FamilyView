@@ -1,4 +1,8 @@
 ﻿using System;
+using System.Drawing;
+using System.Windows.Forms;
+
+// TODO winforms dropdown-button for 'other marriages'
 
 namespace FamilyView
 {
@@ -14,8 +18,8 @@ namespace FamilyView
             InitializeComponent();
 
             _childBtns = new[] { goChild1, goChild2, goChild3, goChild4, goChild5 };
-            _primary = Primary;
-            _spouse = Spouse;
+            //_primary = Primary;
+            //_spouse = Spouse;
             _marr = Marr;
             _dad = Dad;
             _mom = Mom;
@@ -86,6 +90,25 @@ namespace FamilyView
 
             goSDad.Visible = _dataset.sDad.who != null;
             goSMom.Visible = _dataset.sMom.who != null;
+
+            Primary.Text = buildLines(_dataset.primary);
+            Primary.Who = _dataset.primary;
+            Primary.HasNotes = _dataset.primary.who.Indi.Notes.Count > 0; // TODO better accessor!
+            Primary.HasMedia = _dataset.primary.who.Indi.Media.Count > 0; // TODO better accessor!
+            Primary.HasSours = _dataset.primary.who.Indi.Cits.Count > 0; // TODO better accessor!
+
+            Spouse.Who = _dataset.spouse;
+            Spouse.Text = buildLines(_dataset.spouse);
+            if (_dataset.spouse.HasValue)
+            {
+                Spouse.HasNotes = _dataset.spouse.Value.who.Indi.Notes.Count > 0; // TODO better accessor!
+                Spouse.HasMedia = _dataset.spouse.Value.who.Indi.Media.Count > 0; // TODO better accessor!
+                Spouse.HasSours = _dataset.spouse.Value.who.Indi.Cits.Count > 0; // TODO better accessor!
+            }
+            else
+            {
+                Spouse.HasNotes = Spouse.HasMedia = Spouse.HasSours = false;
+            }
 
         }
 

@@ -41,8 +41,8 @@
             this.goSDad = new System.Windows.Forms.Button();
             this.goSMom = new System.Windows.Forms.Button();
             this.goChild1 = new System.Windows.Forms.Button();
-            this.Primary = new FamilyView.TBox();
-            this.Spouse = new FamilyView.TBox();
+            this.Primary = new FamilyView.PersonDataBox();
+            this.Spouse = new FamilyView.PersonDataBox();
             this.label3 = new System.Windows.Forms.Label();
             this.label4 = new System.Windows.Forms.Label();
             this.label5 = new System.Windows.Forms.Label();
@@ -53,6 +53,9 @@
             this.sMom = new FamilyView.TBox();
             this.btnMarriages = new System.Windows.Forms.Button();
             this.btnSMarriages = new System.Windows.Forms.Button();
+            this.label7 = new System.Windows.Forms.Label();
+            this.label8 = new System.Windows.Forms.Label();
+            this.label9 = new System.Windows.Forms.Label();
             this.SuspendLayout();
             // 
             // listBox1
@@ -75,13 +78,13 @@
             // 
             // goDad
             // 
-            this.goDad.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.goDad.Font = new System.Drawing.Font("Wingdings 3", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(2)));
             this.goDad.Location = new System.Drawing.Point(765, 26);
             this.goDad.Margin = new System.Windows.Forms.Padding(2);
             this.goDad.Name = "goDad";
             this.goDad.Size = new System.Drawing.Size(27, 25);
             this.goDad.TabIndex = 2;
-            this.goDad.Text = ">>";
+            this.goDad.Text = "u";
             this.goDad.UseVisualStyleBackColor = true;
             this.goDad.Click += new System.EventHandler(this.goDad_Click);
             // 
@@ -135,17 +138,17 @@
             // 
             // Marr
             // 
-            this.Marr.Location = new System.Drawing.Point(70, 132);
+            this.Marr.Location = new System.Drawing.Point(129, 132);
             this.Marr.Margin = new System.Windows.Forms.Padding(4);
             this.Marr.Name = "Marr";
-            this.Marr.Size = new System.Drawing.Size(233, 22);
+            this.Marr.Size = new System.Drawing.Size(149, 22);
             this.Marr.TabIndex = 3;
             this.Marr.Text = "Marriage:";
             // 
             // label1
             // 
             this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(36, 167);
+            this.label1.Location = new System.Drawing.Point(36, 171);
             this.label1.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(58, 16);
@@ -155,7 +158,7 @@
             // label2
             // 
             this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(40, 287);
+            this.label2.Location = new System.Drawing.Point(40, 298);
             this.label2.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(60, 16);
@@ -164,37 +167,37 @@
             // 
             // goMom
             // 
-            this.goMom.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.goMom.Font = new System.Drawing.Font("Wingdings 3", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(2)));
             this.goMom.Location = new System.Drawing.Point(765, 76);
             this.goMom.Margin = new System.Windows.Forms.Padding(2);
             this.goMom.Name = "goMom";
             this.goMom.Size = new System.Drawing.Size(27, 25);
             this.goMom.TabIndex = 2;
-            this.goMom.Text = ">>";
+            this.goMom.Text = "u";
             this.goMom.UseVisualStyleBackColor = true;
             this.goMom.Click += new System.EventHandler(this.goMom_Click);
             // 
             // goSDad
             // 
-            this.goSDad.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.goSDad.Location = new System.Drawing.Point(765, 185);
+            this.goSDad.Font = new System.Drawing.Font("Wingdings 3", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(2)));
+            this.goSDad.Location = new System.Drawing.Point(765, 189);
             this.goSDad.Margin = new System.Windows.Forms.Padding(2);
             this.goSDad.Name = "goSDad";
             this.goSDad.Size = new System.Drawing.Size(27, 25);
             this.goSDad.TabIndex = 2;
-            this.goSDad.Text = ">>";
+            this.goSDad.Text = "u";
             this.goSDad.UseVisualStyleBackColor = true;
             this.goSDad.Click += new System.EventHandler(this.goSDad_Click);
             // 
             // goSMom
             // 
-            this.goSMom.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.goSMom.Font = new System.Drawing.Font("Wingdings 3", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(2)));
             this.goSMom.Location = new System.Drawing.Point(765, 238);
             this.goSMom.Margin = new System.Windows.Forms.Padding(2);
             this.goSMom.Name = "goSMom";
             this.goSMom.Size = new System.Drawing.Size(27, 25);
             this.goSMom.TabIndex = 2;
-            this.goSMom.Text = ">>";
+            this.goSMom.Text = "u";
             this.goSMom.UseVisualStyleBackColor = true;
             this.goSMom.Click += new System.EventHandler(this.goSMom_Click);
             // 
@@ -212,10 +215,12 @@
             // 
             // Primary
             // 
-            this.Primary.BackColor = System.Drawing.Color.White;
-            this.Primary.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.Primary.BackColor = System.Drawing.SystemColors.Control;
             this.Primary.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.Primary.ForeColor = System.Drawing.Color.Black;
+            this.Primary.HasMedia = false;
+            this.Primary.HasNotes = false;
+            this.Primary.HasSours = false;
             this.Primary.Location = new System.Drawing.Point(39, 19);
             this.Primary.Margin = new System.Windows.Forms.Padding(4);
             this.Primary.Multiline = true;
@@ -223,17 +228,19 @@
             this.Primary.Owner = null;
             this.Primary.ReadOnly = true;
             this.Primary.Selected = false;
-            this.Primary.Size = new System.Drawing.Size(388, 90);
+            this.Primary.Size = new System.Drawing.Size(388, 85);
             this.Primary.TabIndex = 7;
             this.Primary.TabStop = false;
             this.Primary.Who = null;
             // 
             // Spouse
             // 
-            this.Spouse.BackColor = System.Drawing.Color.White;
-            this.Spouse.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.Spouse.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.Spouse.BackColor = System.Drawing.SystemColors.Control;
+            this.Spouse.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.Spouse.ForeColor = System.Drawing.Color.Black;
+            this.Spouse.HasMedia = false;
+            this.Spouse.HasNotes = false;
+            this.Spouse.HasSours = false;
             this.Spouse.Location = new System.Drawing.Point(57, 191);
             this.Spouse.Margin = new System.Windows.Forms.Padding(4);
             this.Spouse.Multiline = true;
@@ -241,7 +248,7 @@
             this.Spouse.Owner = null;
             this.Spouse.ReadOnly = true;
             this.Spouse.Selected = false;
-            this.Spouse.Size = new System.Drawing.Size(367, 78);
+            this.Spouse.Size = new System.Drawing.Size(367, 85);
             this.Spouse.TabIndex = 8;
             this.Spouse.TabStop = false;
             this.Spouse.Who = null;
@@ -352,20 +359,22 @@
             // 
             // btnMarriages
             // 
+            this.btnMarriages.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnMarriages.Location = new System.Drawing.Point(314, 116);
             this.btnMarriages.Name = "btnMarriages";
             this.btnMarriages.Size = new System.Drawing.Size(113, 23);
             this.btnMarriages.TabIndex = 15;
-            this.btnMarriages.Text = "Marriages...";
+            this.btnMarriages.Text = "Other Marriages...";
             this.btnMarriages.UseVisualStyleBackColor = true;
             // 
             // btnSMarriages
             // 
-            this.btnSMarriages.Location = new System.Drawing.Point(311, 276);
+            this.btnSMarriages.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnSMarriages.Location = new System.Drawing.Point(311, 288);
             this.btnSMarriages.Name = "btnSMarriages";
             this.btnSMarriages.Size = new System.Drawing.Size(113, 23);
             this.btnSMarriages.TabIndex = 15;
-            this.btnSMarriages.Text = "Marriages...";
+            this.btnSMarriages.Text = "Other Marriages...";
             this.btnSMarriages.UseVisualStyleBackColor = true;
             // 
             // View4
@@ -373,6 +382,8 @@
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(820, 458);
+            this.Controls.Add(this.label9);
+            this.Controls.Add(this.Marr);
             this.Controls.Add(this.btnSMarriages);
             this.Controls.Add(this.btnMarriages);
             this.Controls.Add(this.sMom);
@@ -380,6 +391,8 @@
             this.Controls.Add(this.Mom);
             this.Controls.Add(this.Dad);
             this.Controls.Add(this.label6);
+            this.Controls.Add(this.label8);
+            this.Controls.Add(this.label7);
             this.Controls.Add(this.label5);
             this.Controls.Add(this.label4);
             this.Controls.Add(this.label3);
@@ -422,8 +435,8 @@
         private System.Windows.Forms.Button goSDad;
         private System.Windows.Forms.Button goSMom;
         private System.Windows.Forms.Button goChild1;
-        private TBox Primary;
-        private TBox Spouse;
+        private PersonDataBox Primary;
+        private PersonDataBox Spouse;
         private System.Windows.Forms.Label label3;
         private System.Windows.Forms.Label label4;
         private System.Windows.Forms.Label label5;
@@ -434,5 +447,8 @@
         private TBox sMom;
         private System.Windows.Forms.Button btnMarriages;
         private System.Windows.Forms.Button btnSMarriages;
+        private System.Windows.Forms.Label label7;
+        private System.Windows.Forms.Label label8;
+        private System.Windows.Forms.Label label9;
     }
 }

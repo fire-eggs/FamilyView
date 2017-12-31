@@ -13,6 +13,8 @@ namespace FamilyView
             public string DateRange;
             public bool HasParents;
             public bool HasMMarr;
+            public string BirthYear { get; set; }
+            public string DeathYear { get; set; }
         }
 
         public struct DataSet
@@ -90,12 +92,14 @@ namespace FamilyView
             pd.Birth = p.GetDate("BIRT") + ":" + p.GetPlace("BIRT");
             pd.Death = p.GetDate("DEAT") + ":" + p.GetPlace("DEAT");
 
-            pd.DateRange = string.Format("({0}-{1})",
-                p.GetYear("BIRT"), p.GetYear("DEAT"));
+            pd.DateRange = string.Format("({0}-{1})", p.GetYear("BIRT"), p.GetYear("DEAT"));
 
             var pFam = p.ChildIn.FirstOrDefault();
             pd.HasParents = pFam != null && pFam.Husband != null && pFam.Wife != null;
             pd.HasMMarr = p.SpouseIn.Count() > 1;
+
+            pd.BirthYear = p.GetYear("BIRT");
+            pd.DeathYear = p.GetYear("DEAT");
 
             return pd;
         }

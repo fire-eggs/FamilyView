@@ -13,6 +13,16 @@ using System.Windows.Forms;
 // TODO GedDate.Year isn't always just the year
 // TODO tooltips
 
+// TODO KEL comment: would like to be able to make the child list taller when necessary
+// TODO KEL comment: program should remember last scroll position in child list [constantly having to scroll]
+// TODO KEL comment: useful to have child birth/death dates, maybe age. 'Parent link' is not useful.
+// TODO KEL comment: didn't know what the little triangle in corner meant. Useful but needs to be more obvious.
+// TODO KEL comment: Indi list really needs only name, sex, birth and death dates.
+// TODO KEL comment: pedigree needs to show birth/death dates
+
+// TODO KEL comment: birth/death dates useful to disambiguate people
+// TODO KEL comment: prefers variant 4
+
 namespace FamilyView
 {
     public partial class Form1 : Form
