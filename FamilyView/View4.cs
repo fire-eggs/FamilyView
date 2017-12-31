@@ -3,6 +3,8 @@ using System.Drawing;
 using System.Windows.Forms;
 
 // TODO winforms dropdown-button for 'other marriages'
+// TODO MVC variant
+// TODO how to make 'add new' functionality more obvious ['Add' btn in grid;'Add' btn in PersonDataBox?;parents?]
 
 namespace FamilyView
 {
@@ -17,13 +19,9 @@ namespace FamilyView
         {
             InitializeComponent();
 
-            _childBtns = new[] { goChild1, goChild2, goChild3, goChild4, goChild5 };
-            //_primary = Primary;
-            //_spouse = Spouse;
             _marr = Marr;
             _dad = Dad;
             _mom = Mom;
-            _childs = listBox1;
             _goDad = goDad;
             _goMom = goMom;
 
@@ -34,7 +32,46 @@ namespace FamilyView
             sDad.Multiline = false;
             sMom.Multiline = false;
 
+            // 'goto' button in column 0 of grid
+            var dgvbc = (childGrid.Columns[0] as DataGridViewButtonColumn);
+            dgvbc.Text = "t";
+            dgvbc.UseColumnTextForButtonValue = true;
+            dgvbc.Resizable = DataGridViewTriState.False;
+            dgvbc.ToolTipText = "Make this child the primary";
+            
+            childGrid.CellClick += ChildGridCellClick;
+            childGrid.CellDoubleClick += ChildGridCellDoubleClick;
             SetContents();
+        }
+
+        void ChildGridCellDoubleClick(object sender, DataGridViewCellEventArgs e)
+        {
+            if (e.ColumnIndex != 0)
+            {
+                var dex = e.RowIndex;
+                if (dex < 0)
+                    return;
+                if (dex >= _dataset.children.Count)
+                {
+                    MessageBox.Show("Add new child", "Add new child");
+                }
+                else
+                {
+                    var Who = _dataset.children[dex];
+                    MessageBox.Show(Who.Fullname, "Editing person");
+                }
+            }
+        }
+
+        void ChildGridCellClick(object sender, DataGridViewCellEventArgs e)
+        {
+            if (e.ColumnIndex == 0)
+            {
+                var dex = e.RowIndex;
+                if (dex < 0)
+                    return;
+                changePerson(_dataset.children[dex].who);
+            }
         }
 
         private void goDad_Click(object sender, EventArgs e)
@@ -47,35 +84,8 @@ namespace FamilyView
             changePerson(_dataset.pMom.who);
         }
 
-        private void goChild1_Click(object sender, EventArgs e)
-        {
-            changePerson(_dataset.children[0].who);
-        }
-
-        private void goChild2_Click(object sender, EventArgs e)
-        {
-            changePerson(_dataset.children[1].who);
-        }
-
-        private void goChild3_Click(object sender, EventArgs e)
-        {
-            changePerson(_dataset.children[2].who);
-        }
-
-        private void goChild4_Click(object sender, EventArgs e)
-        {
-            changePerson(_dataset.children[3].who);
-        }
-
-        private void goChild5_Click(object sender, EventArgs e)
-        {
-            changePerson(_dataset.children[4].who);
-        }
-
         protected override void SetContents()
         {
-            base.SetContents();
-
             _dad.Text = oneLine(_dataset.pDad);
             _mom.Text = oneLine(_dataset.pMom);
 
@@ -87,7 +97,10 @@ namespace FamilyView
 
             btnMarriages.Visible = _dataset.primary.HasMMarr;
             btnSMarriages.Visible = _dataset.spouse.HasValue && _dataset.spouse.Value.HasMMarr;
+            _marr.Text = _dataset.marriage;
 
+            _goDad.Visible = _dataset.pDad.who != null;
+            _goMom.Visible = _dataset.pMom.who != null;
             goSDad.Visible = _dataset.sDad.who != null;
             goSMom.Visible = _dataset.sMom.who != null;
 
@@ -110,7 +123,30 @@ namespace FamilyView
                 Spouse.HasNotes = Spouse.HasMedia = Spouse.HasSours = false;
             }
 
+            childGrid.Rows.Clear();
+            if (_dataset.children != null)
+            {
+                int i = 0;
+                foreach (var child in _dataset.children)
+                {
+                    childGrid.Rows.Add(new object[] {null, child.Fullname, child.BirthYear, child.DeathYear});
+                    childGrid.Rows[i].Height = 25;
+                    childGrid.Rows[i].Cells[2].ToolTipText = child.Birth;
+                    childGrid.Rows[i].Cells[3].ToolTipText = child.Death;
+
+                    i++;
+                }
+
+                // TODO consider an 'add' button instead?
+                childGrid.Rows.Add(new object[] {null, "", "", ""});
+                childGrid.Rows[i].Height = 25;
+                childGrid.Rows[i].Cells[0].Style = _hideBtn;
+                childGrid.Rows[i].Cells[0].ToolTipText = "";
+            }
         }
+
+        // A style used to hide the "goto" button in the datagridview
+        private DataGridViewCellStyle _hideBtn = new DataGridViewCellStyle() {Padding = new Padding(100,0,0,0)};
 
         protected string oneLine(PData? p)
         {

@@ -28,19 +28,15 @@
         /// </summary>
         private void InitializeComponent()
         {
-            this.listBox1 = new System.Windows.Forms.ListBox();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle1 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle2 = new System.Windows.Forms.DataGridViewCellStyle();
             this.goDad = new System.Windows.Forms.Button();
-            this.goChild3 = new System.Windows.Forms.Button();
-            this.goChild2 = new System.Windows.Forms.Button();
-            this.goChild5 = new System.Windows.Forms.Button();
-            this.goChild4 = new System.Windows.Forms.Button();
             this.Marr = new System.Windows.Forms.TextBox();
             this.label1 = new System.Windows.Forms.Label();
             this.label2 = new System.Windows.Forms.Label();
             this.goMom = new System.Windows.Forms.Button();
             this.goSDad = new System.Windows.Forms.Button();
             this.goSMom = new System.Windows.Forms.Button();
-            this.goChild1 = new System.Windows.Forms.Button();
             this.Primary = new FamilyView.PersonDataBox();
             this.Spouse = new FamilyView.PersonDataBox();
             this.label3 = new System.Windows.Forms.Label();
@@ -53,28 +49,16 @@
             this.sMom = new FamilyView.TBox();
             this.btnMarriages = new System.Windows.Forms.Button();
             this.btnSMarriages = new System.Windows.Forms.Button();
+            this.childGrid = new System.Windows.Forms.DataGridView();
+            this.navTo = new System.Windows.Forms.DataGridViewButtonColumn();
+            this.cName = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.bDate = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.dDate = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.label7 = new System.Windows.Forms.Label();
             this.label8 = new System.Windows.Forms.Label();
             this.label9 = new System.Windows.Forms.Label();
+            ((System.ComponentModel.ISupportInitialize)(this.childGrid)).BeginInit();
             this.SuspendLayout();
-            // 
-            // listBox1
-            // 
-            this.listBox1.FormattingEnabled = true;
-            this.listBox1.ItemHeight = 16;
-            this.listBox1.Items.AddRange(new object[] {
-            "Child1",
-            "Child2",
-            "Child3",
-            "Child4",
-            "Child5",
-            "",
-            ""});
-            this.listBox1.Location = new System.Drawing.Point(56, 310);
-            this.listBox1.Margin = new System.Windows.Forms.Padding(4);
-            this.listBox1.Name = "listBox1";
-            this.listBox1.Size = new System.Drawing.Size(736, 132);
-            this.listBox1.TabIndex = 1;
             // 
             // goDad
             // 
@@ -87,54 +71,6 @@
             this.goDad.Text = "u";
             this.goDad.UseVisualStyleBackColor = true;
             this.goDad.Click += new System.EventHandler(this.goDad_Click);
-            // 
-            // goChild3
-            // 
-            this.goChild3.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.goChild3.Location = new System.Drawing.Point(16, 368);
-            this.goChild3.Margin = new System.Windows.Forms.Padding(2);
-            this.goChild3.Name = "goChild3";
-            this.goChild3.Size = new System.Drawing.Size(27, 25);
-            this.goChild3.TabIndex = 2;
-            this.goChild3.Text = "<<";
-            this.goChild3.UseVisualStyleBackColor = true;
-            this.goChild3.Click += new System.EventHandler(this.goChild3_Click);
-            // 
-            // goChild2
-            // 
-            this.goChild2.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.goChild2.Location = new System.Drawing.Point(16, 339);
-            this.goChild2.Margin = new System.Windows.Forms.Padding(2);
-            this.goChild2.Name = "goChild2";
-            this.goChild2.Size = new System.Drawing.Size(27, 25);
-            this.goChild2.TabIndex = 2;
-            this.goChild2.Text = "<<";
-            this.goChild2.UseVisualStyleBackColor = true;
-            this.goChild2.Click += new System.EventHandler(this.goChild2_Click);
-            // 
-            // goChild5
-            // 
-            this.goChild5.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.goChild5.Location = new System.Drawing.Point(16, 426);
-            this.goChild5.Margin = new System.Windows.Forms.Padding(2);
-            this.goChild5.Name = "goChild5";
-            this.goChild5.Size = new System.Drawing.Size(27, 25);
-            this.goChild5.TabIndex = 2;
-            this.goChild5.Text = "<<";
-            this.goChild5.UseVisualStyleBackColor = true;
-            this.goChild5.Click += new System.EventHandler(this.goChild5_Click);
-            // 
-            // goChild4
-            // 
-            this.goChild4.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.goChild4.Location = new System.Drawing.Point(16, 397);
-            this.goChild4.Margin = new System.Windows.Forms.Padding(2);
-            this.goChild4.Name = "goChild4";
-            this.goChild4.Size = new System.Drawing.Size(27, 25);
-            this.goChild4.TabIndex = 2;
-            this.goChild4.Text = "<<";
-            this.goChild4.UseVisualStyleBackColor = true;
-            this.goChild4.Click += new System.EventHandler(this.goChild4_Click);
             // 
             // Marr
             // 
@@ -200,18 +136,6 @@
             this.goSMom.Text = "u";
             this.goSMom.UseVisualStyleBackColor = true;
             this.goSMom.Click += new System.EventHandler(this.goSMom_Click);
-            // 
-            // goChild1
-            // 
-            this.goChild1.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.goChild1.Location = new System.Drawing.Point(16, 310);
-            this.goChild1.Margin = new System.Windows.Forms.Padding(2);
-            this.goChild1.Name = "goChild1";
-            this.goChild1.Size = new System.Drawing.Size(27, 25);
-            this.goChild1.TabIndex = 2;
-            this.goChild1.Text = "<<";
-            this.goChild1.UseVisualStyleBackColor = true;
-            this.goChild1.Click += new System.EventHandler(this.goChild1_Click);
             // 
             // Primary
             // 
@@ -377,6 +301,99 @@
             this.btnSMarriages.Text = "Other Marriages...";
             this.btnSMarriages.UseVisualStyleBackColor = true;
             // 
+            // childGrid
+            // 
+            this.childGrid.AllowUserToAddRows = false;
+            this.childGrid.AllowUserToDeleteRows = false;
+            this.childGrid.BackgroundColor = System.Drawing.SystemColors.Window;
+            dataGridViewCellStyle1.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle1.BackColor = System.Drawing.SystemColors.Control;
+            dataGridViewCellStyle1.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            dataGridViewCellStyle1.ForeColor = System.Drawing.SystemColors.WindowText;
+            dataGridViewCellStyle1.SelectionBackColor = System.Drawing.SystemColors.Highlight;
+            dataGridViewCellStyle1.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
+            dataGridViewCellStyle1.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
+            this.childGrid.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle1;
+            this.childGrid.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.childGrid.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
+            this.navTo,
+            this.cName,
+            this.bDate,
+            this.dDate});
+            this.childGrid.EditMode = System.Windows.Forms.DataGridViewEditMode.EditProgrammatically;
+            this.childGrid.Location = new System.Drawing.Point(43, 317);
+            this.childGrid.MultiSelect = false;
+            this.childGrid.Name = "childGrid";
+            this.childGrid.ReadOnly = true;
+            this.childGrid.RowHeadersVisible = false;
+            this.childGrid.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.CellSelect;
+            this.childGrid.ShowEditingIcon = false;
+            this.childGrid.Size = new System.Drawing.Size(735, 129);
+            this.childGrid.TabIndex = 16;
+            // 
+            // navTo
+            // 
+            dataGridViewCellStyle2.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
+            dataGridViewCellStyle2.Font = new System.Drawing.Font("Wingdings 3", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(2)));
+            this.navTo.DefaultCellStyle = dataGridViewCellStyle2;
+            this.navTo.HeaderText = "";
+            this.navTo.MinimumWidth = 25;
+            this.navTo.Name = "navTo";
+            this.navTo.ReadOnly = true;
+            this.navTo.Width = 40;
+            // 
+            // cName
+            // 
+            this.cName.HeaderText = "Name";
+            this.cName.MinimumWidth = 50;
+            this.cName.Name = "cName";
+            this.cName.ReadOnly = true;
+            this.cName.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable;
+            this.cName.Width = 200;
+            // 
+            // bDate
+            // 
+            this.bDate.HeaderText = "Birth";
+            this.bDate.MinimumWidth = 50;
+            this.bDate.Name = "bDate";
+            this.bDate.ReadOnly = true;
+            this.bDate.Width = 75;
+            // 
+            // dDate
+            // 
+            this.dDate.HeaderText = "Death";
+            this.dDate.MinimumWidth = 50;
+            this.dDate.Name = "dDate";
+            this.dDate.ReadOnly = true;
+            this.dDate.Width = 75;
+            // 
+            // label7
+            // 
+            this.label7.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.label7.Location = new System.Drawing.Point(147, 157);
+            this.label7.Name = "label7";
+            this.label7.Size = new System.Drawing.Size(2, 35);
+            this.label7.TabIndex = 10;
+            this.label7.Text = "label5";
+            // 
+            // label8
+            // 
+            this.label8.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.label8.Location = new System.Drawing.Point(147, 109);
+            this.label8.Name = "label8";
+            this.label8.Size = new System.Drawing.Size(2, 30);
+            this.label8.TabIndex = 10;
+            this.label8.Text = "label5";
+            // 
+            // label9
+            // 
+            this.label9.AutoSize = true;
+            this.label9.Location = new System.Drawing.Point(57, 135);
+            this.label9.Name = "label9";
+            this.label9.Size = new System.Drawing.Size(65, 16);
+            this.label9.TabIndex = 17;
+            this.label9.Text = "Marriage:";
+            // 
             // View4
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
@@ -384,6 +401,7 @@
             this.ClientSize = new System.Drawing.Size(820, 458);
             this.Controls.Add(this.label9);
             this.Controls.Add(this.Marr);
+            this.Controls.Add(this.childGrid);
             this.Controls.Add(this.btnSMarriages);
             this.Controls.Add(this.btnMarriages);
             this.Controls.Add(this.sMom);
@@ -400,21 +418,15 @@
             this.Controls.Add(this.Primary);
             this.Controls.Add(this.label2);
             this.Controls.Add(this.label1);
-            this.Controls.Add(this.Marr);
-            this.Controls.Add(this.goChild4);
-            this.Controls.Add(this.goChild5);
-            this.Controls.Add(this.goChild1);
-            this.Controls.Add(this.goChild2);
-            this.Controls.Add(this.goChild3);
             this.Controls.Add(this.goSMom);
             this.Controls.Add(this.goSDad);
             this.Controls.Add(this.goMom);
             this.Controls.Add(this.goDad);
-            this.Controls.Add(this.listBox1);
             this.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.Margin = new System.Windows.Forms.Padding(4);
             this.Name = "View4";
             this.Text = "View4";
+            ((System.ComponentModel.ISupportInitialize)(this.childGrid)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -422,19 +434,13 @@
 
         #endregion
 
-        private System.Windows.Forms.ListBox listBox1;
         private System.Windows.Forms.Button goDad;
-        private System.Windows.Forms.Button goChild3;
-        private System.Windows.Forms.Button goChild2;
-        private System.Windows.Forms.Button goChild5;
-        private System.Windows.Forms.Button goChild4;
         private System.Windows.Forms.TextBox Marr;
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.Button goMom;
         private System.Windows.Forms.Button goSDad;
         private System.Windows.Forms.Button goSMom;
-        private System.Windows.Forms.Button goChild1;
         private PersonDataBox Primary;
         private PersonDataBox Spouse;
         private System.Windows.Forms.Label label3;
@@ -447,6 +453,11 @@
         private TBox sMom;
         private System.Windows.Forms.Button btnMarriages;
         private System.Windows.Forms.Button btnSMarriages;
+        private System.Windows.Forms.DataGridView childGrid;
+        private System.Windows.Forms.DataGridViewButtonColumn navTo;
+        private System.Windows.Forms.DataGridViewTextBoxColumn cName;
+        private System.Windows.Forms.DataGridViewTextBoxColumn bDate;
+        private System.Windows.Forms.DataGridViewTextBoxColumn dDate;
         private System.Windows.Forms.Label label7;
         private System.Windows.Forms.Label label8;
         private System.Windows.Forms.Label label9;
