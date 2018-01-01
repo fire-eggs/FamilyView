@@ -61,6 +61,9 @@
     </Compile>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="SplitButton.cs">
+      <SubType>Component</SubType>
+    </Compile>
     <Compile Include="TBox.cs">
       <SubType>Component</SubType>
     </Compile>
@@ -142,7 +145,6 @@
     <None Include="App.config" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="notes-icon_32.png" />
     <None Include="Resources\Notepad-Bloc-notes-icon_24.png" />
     <None Include="Resources\Photography-icon_24.png" />
     <None Include="Resources\Picture-icon_24.png" />

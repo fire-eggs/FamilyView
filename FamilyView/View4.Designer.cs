@@ -57,6 +57,8 @@
             this.label7 = new System.Windows.Forms.Label();
             this.label8 = new System.Windows.Forms.Label();
             this.label9 = new System.Windows.Forms.Label();
+            this.splitButton1 = new FamilyView.SplitButton();
+            this.splitButton2 = new FamilyView.SplitButton();
             ((System.ComponentModel.ISupportInitialize)(this.childGrid)).BeginInit();
             this.SuspendLayout();
             // 
@@ -74,6 +76,7 @@
             // 
             // Marr
             // 
+            this.Marr.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.Marr.Location = new System.Drawing.Point(129, 132);
             this.Marr.Margin = new System.Windows.Forms.Padding(4);
             this.Marr.Name = "Marr";
@@ -284,22 +287,24 @@
             // btnMarriages
             // 
             this.btnMarriages.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnMarriages.Location = new System.Drawing.Point(314, 116);
+            this.btnMarriages.Location = new System.Drawing.Point(502, 128);
             this.btnMarriages.Name = "btnMarriages";
             this.btnMarriages.Size = new System.Drawing.Size(113, 23);
             this.btnMarriages.TabIndex = 15;
             this.btnMarriages.Text = "Other Marriages...";
             this.btnMarriages.UseVisualStyleBackColor = true;
+            this.btnMarriages.Visible = false;
             // 
             // btnSMarriages
             // 
             this.btnSMarriages.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnSMarriages.Location = new System.Drawing.Point(311, 288);
+            this.btnSMarriages.Location = new System.Drawing.Point(502, 279);
             this.btnSMarriages.Name = "btnSMarriages";
             this.btnSMarriages.Size = new System.Drawing.Size(113, 23);
             this.btnSMarriages.TabIndex = 15;
             this.btnSMarriages.Text = "Other Marriages...";
             this.btnSMarriages.UseVisualStyleBackColor = true;
+            this.btnSMarriages.Visible = false;
             // 
             // childGrid
             // 
@@ -394,11 +399,37 @@
             this.label9.TabIndex = 17;
             this.label9.Text = "Marriage:";
             // 
+            // splitButton1
+            // 
+            this.splitButton1.DropDownOnly = false;
+            this.splitButton1.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.splitButton1.Location = new System.Drawing.Point(300, 111);
+            this.splitButton1.Name = "splitButton1";
+            this.splitButton1.Size = new System.Drawing.Size(124, 23);
+            this.splitButton1.TabIndex = 18;
+            this.splitButton1.Text = "Other Marriages";
+            this.splitButton1.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.splitButton1.UseVisualStyleBackColor = true;
+            // 
+            // splitButton2
+            // 
+            this.splitButton2.DropDownOnly = false;
+            this.splitButton2.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.splitButton2.Location = new System.Drawing.Point(300, 279);
+            this.splitButton2.Name = "splitButton2";
+            this.splitButton2.Size = new System.Drawing.Size(124, 23);
+            this.splitButton2.TabIndex = 18;
+            this.splitButton2.Text = "Other Marriages";
+            this.splitButton2.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.splitButton2.UseVisualStyleBackColor = true;
+            // 
             // View4
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(820, 458);
+            this.Controls.Add(this.splitButton2);
+            this.Controls.Add(this.splitButton1);
             this.Controls.Add(this.label9);
             this.Controls.Add(this.Marr);
             this.Controls.Add(this.childGrid);
@@ -461,5 +492,7 @@
         private System.Windows.Forms.Label label7;
         private System.Windows.Forms.Label label8;
         private System.Windows.Forms.Label label9;
+        private SplitButton splitButton1;
+        private SplitButton splitButton2;
     }
 }

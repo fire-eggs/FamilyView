@@ -5,6 +5,7 @@ using System.Windows.Forms;
 // TODO winforms dropdown-button for 'other marriages'
 // TODO MVC variant
 // TODO how to make 'add new' functionality more obvious ['Add' btn in grid;'Add' btn in PersonDataBox?;parents?]
+using GEDWrap;
 
 namespace FamilyView
 {
@@ -95,9 +96,41 @@ namespace FamilyView
             sDad.Who = _dataset.sDad;
             sMom.Who = _dataset.sMom;
 
-            btnMarriages.Visible = _dataset.primary.HasMMarr;
-            btnSMarriages.Visible = _dataset.spouse.HasValue && _dataset.spouse.Value.HasMMarr;
             _marr.Text = _dataset.marriage;
+
+            splitButton1.Visible = _dataset.primary.HasMMarr;
+            splitButton1.Menu = null;
+            if (_dataset.primary.HasMMarr)
+            {
+                ContextMenuStrip cms = new ContextMenuStrip();
+                foreach (var un in _dataset.primary.who.SpouseIn)
+                {
+                    var sp = un.Spouse(_dataset.primary.who);
+                    ToolStripMenuItem tsi = new ToolStripMenuItem(sp.Name);
+                    tsi.Click += OthSpClick;
+                    tsi.Tag = sp;
+                    cms.Items.Add(tsi);
+                }
+                splitButton1.Menu = cms;
+                splitButton1.DropDownOnly = true;
+            }
+
+            splitButton2.Visible = _dataset.spouse.HasValue && _dataset.spouse.Value.HasMMarr;
+            splitButton2.Menu = null;
+            if (_dataset.spouse.HasValue && _dataset.spouse.Value.HasMMarr)
+            {
+                ContextMenuStrip cms = new ContextMenuStrip();
+                foreach (var un in _dataset.spouse.Value.who.SpouseIn)
+                {
+                    var sp = un.Spouse(_dataset.spouse.Value.who);
+                    ToolStripMenuItem tsi = new ToolStripMenuItem(sp.Name);
+                    tsi.Click += OthSpClick; // TODO does this need to be distinct vs primary?
+                    tsi.Tag = sp;
+                    cms.Items.Add(tsi);
+                }
+                splitButton2.Menu = cms;
+                splitButton2.DropDownOnly = true;
+            }
 
             _goDad.Visible = _dataset.pDad.who != null;
             _goMom.Visible = _dataset.pMom.who != null;
@@ -143,6 +176,14 @@ namespace FamilyView
                 childGrid.Rows[i].Cells[0].Style = _hideBtn;
                 childGrid.Rows[i].Cells[0].ToolTipText = "";
             }
+        }
+
+        private void OthSpClick(object sender, EventArgs e)
+        {
+            ToolStripMenuItem tsmi = sender as ToolStripMenuItem;
+            var who = tsmi.Tag as Person;
+            changePerson(who);
+            // TODO should this *not* change the primary? (i.e. change the spouse and children and spouse's parents...)
         }
 
         // A style used to hide the "goto" button in the datagridview
