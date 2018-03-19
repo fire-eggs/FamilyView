@@ -97,7 +97,10 @@ namespace FamilyView
             if (selected == null || selected.Selected)
                 return;
 
-            _primary.Selected = _spouse.Selected = false;
+            if (_primary != null)
+                _primary.Selected = false;
+            if (_spouse != null)
+                _spouse.Selected = false;
             _dad.Selected = _mom.Selected = false;
             //sDad.Selected = sMom.Selected = false;
 

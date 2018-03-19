@@ -11,10 +11,10 @@ namespace FamilyView
 {
     public partial class View4 : ViewBase
     {
-        private View4()
-        {
-            InitializeComponent();
-        }
+        //private View4()
+        //{
+        //    InitializeComponent();
+        //}
 
         public View4(DataSet baseData) : base(baseData)
         {
@@ -50,6 +50,8 @@ namespace FamilyView
             childGrid.CellClick += ChildGridCellClick;
             childGrid.CellDoubleClick += ChildGridCellDoubleClick;
             SetContents();
+
+            tboxPDad2.Person += personEvent; // NOTE reminder: if done in SetContents will get multiple events!!!
         }
 
         void ChildGridCellDoubleClick(object sender, DataGridViewCellEventArgs e)
@@ -62,14 +64,14 @@ namespace FamilyView
                 return;
             if (dex >= _dataset.children.Count)
             {
-                MessageBox.Show("Add new child", "Add new child");
+                addChild();
                 return;
             }
 
-            var Who = _dataset.children[dex].primary;
+            var who = _dataset.children[dex].primary;
             if (e.ColumnIndex == 4 && _dataset.children[dex].spouse.HasValue)
-                Who = _dataset.children[dex].spouse.Value;
-            MessageBox.Show(Who.Fullname, "Editing person");
+                who = _dataset.children[dex].spouse.Value;
+            MessageBox.Show(who.Fullname, "Editing person");
         }
 
         void ChildGridCellClick(object sender, DataGridViewCellEventArgs e)
@@ -106,6 +108,11 @@ namespace FamilyView
         protected override void SetContents()
         {
             _dad.Text = oneLine(_dataset.pDad);
+
+            tboxPDad2.Text = oneLine(_dataset.pDad);
+            tboxPDad2.Who = _dataset.pDad;
+            tboxPDad2.Key = 1; // TODO establish via designer
+
             _mom.Text = oneLine(_dataset.pMom);
 
             sDad.Text = oneLine(_dataset.sDad);
@@ -212,6 +219,25 @@ namespace FamilyView
             }
         }
 
+        private void personEvent(object sender, EventArgs e)
+        {
+            var pea = e as PersonArgs;
+            if (pea == null)
+                return;
+            switch (pea.Which)
+            {
+                case ParentTBox2.EventType.Add:
+                    MessageBox.Show(this, "Add key " + pea.Key + " For " + _dataset.primary.Fullname, "Add person");
+                    break;
+                case ParentTBox2.EventType.Go:
+                    changePerson(pea.Who.Value.who);
+                    break;
+                case ParentTBox2.EventType.Edit:
+                    MessageBox.Show(this, "Edit " + pea.Who.Value.Fullname, "Edit person");
+                    break;
+            }
+        }
+
         private void OthSpClick(object sender, EventArgs e)
         {
             ToolStripMenuItem tsmi = sender as ToolStripMenuItem;
@@ -273,7 +299,7 @@ namespace FamilyView
 
         private void addChild()
         {
-            MessageBox.Show("Add new child");
+            MessageBox.Show("For " + _dataset.primary.Fullname, "Add new child");
         }
     }
 }
