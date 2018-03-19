@@ -54,21 +54,22 @@ namespace FamilyView
 
         void ChildGridCellDoubleClick(object sender, DataGridViewCellEventArgs e)
         {
-            if (e.ColumnIndex != 0)
+            if (e.ColumnIndex == 0 || e.ColumnIndex == 5)
+                return;
+
+            var dex = e.RowIndex;
+            if (dex < 0)
+                return;
+            if (dex >= _dataset.children.Count)
             {
-                var dex = e.RowIndex;
-                if (dex < 0)
-                    return;
-                if (dex >= _dataset.children.Count)
-                {
-                    MessageBox.Show("Add new child", "Add new child");
-                }
-                else
-                {
-                    var Who = _dataset.children[dex].primary;
-                    MessageBox.Show(Who.Fullname, "Editing person");
-                }
+                MessageBox.Show("Add new child", "Add new child");
+                return;
             }
+
+            var Who = _dataset.children[dex].primary;
+            if (e.ColumnIndex == 4 && _dataset.children[dex].spouse.HasValue)
+                Who = _dataset.children[dex].spouse.Value;
+            MessageBox.Show(Who.Fullname, "Editing person");
         }
 
         void ChildGridCellClick(object sender, DataGridViewCellEventArgs e)
@@ -162,20 +163,7 @@ namespace FamilyView
 
             Primary.HasNotes = Primary.HasMedia = Primary.HasSours = true;
 
-            Spouse.Who = _dataset.spouse;
-            Spouse.Text = buildLines(_dataset.spouse);
-            if (_dataset.spouse.HasValue)
-            {
-                Spouse.HasNotes = _dataset.spouse.Value.who.Indi.Notes.Count > 0; // TODO better accessor!
-                Spouse.HasMedia = _dataset.spouse.Value.who.Indi.Media.Count > 0; // TODO better accessor!
-                Spouse.HasSours = _dataset.spouse.Value.who.Indi.Cits.Count > 0; // TODO better accessor!
-
-                Spouse.HasNotes = Spouse.HasMedia = Spouse.HasSours = true;
-            }
-            else
-            {
-                Spouse.HasNotes = Spouse.HasMedia = Spouse.HasSours = false;
-            }
+            doSpouse(_dataset.spouse);
 
             childGrid.Rows.Clear();
             if (_dataset.children != null)
@@ -229,7 +217,27 @@ namespace FamilyView
             ToolStripMenuItem tsmi = sender as ToolStripMenuItem;
             var who = tsmi.Tag as Person;
             changePerson(who);
+            
+            //changeVisibleSpouse(who); // TODO won't work unless have alternate spouse data as well
             // TODO should this *not* change the primary? (i.e. change the spouse and children and spouse's parents...)
+        }
+
+        private void doSpouse(PData? spouse)
+        {
+            Spouse.Who = spouse;
+            Spouse.Text = buildLines(spouse);
+            if (spouse.HasValue)
+            {
+                Spouse.HasNotes = spouse.Value.who.Indi.Notes.Count > 0; // TODO better accessor!
+                Spouse.HasMedia = spouse.Value.who.Indi.Media.Count > 0; // TODO better accessor!
+                Spouse.HasSours = spouse.Value.who.Indi.Cits.Count > 0; // TODO better accessor!
+
+                Spouse.HasNotes = Spouse.HasMedia = Spouse.HasSours = true; // TODO debugging
+            }
+            else
+            {
+                Spouse.HasNotes = Spouse.HasMedia = Spouse.HasSours = false;
+            }
         }
 
         // A style used to hide the "goto" button in the datagridview
