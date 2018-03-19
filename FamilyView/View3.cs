@@ -31,27 +31,27 @@ namespace FamilyView
 
         private void goChild5_Click(object sender, EventArgs e)
         {
-            changePerson(_dataset.children[4].who);
+            changePerson(_dataset.children[4].primary.who);
         }
 
         private void goChild4_Click(object sender, EventArgs e)
         {
-            changePerson(_dataset.children[3].who);
+            changePerson(_dataset.children[3].primary.who);
         }
 
         private void goChild3_Click(object sender, EventArgs e)
         {
-            changePerson(_dataset.children[2].who);
+            changePerson(_dataset.children[2].primary.who);
         }
 
         private void goChild2_Click(object sender, EventArgs e)
         {
-            changePerson(_dataset.children[1].who);
+            changePerson(_dataset.children[1].primary.who);
         }
 
         private void goChild1_Click(object sender, EventArgs e)
         {
-            changePerson(_dataset.children[0].who);
+            changePerson(_dataset.children[0].primary.who);
         }
 
         private void goDad_Click(object sender, EventArgs e)

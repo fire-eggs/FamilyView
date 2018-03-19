@@ -36,9 +36,16 @@ namespace FamilyView
             // 'goto' button in column 0 of grid
             var dgvbc = (childGrid.Columns[0] as DataGridViewButtonColumn);
             dgvbc.Text = "t";
-            dgvbc.UseColumnTextForButtonValue = true;
+            dgvbc.UseColumnTextForButtonValue = false;
             dgvbc.Resizable = DataGridViewTriState.False;
             dgvbc.ToolTipText = "Make this child the primary";
+
+            // 'goto' button in column 5 of grid
+            dgvbc = (childGrid.Columns[5] as DataGridViewButtonColumn);
+            dgvbc.Text = "t";
+            dgvbc.UseColumnTextForButtonValue = true;
+            dgvbc.Resizable = DataGridViewTriState.False;
+            dgvbc.ToolTipText = "Make this child's spouse the primary";
             
             childGrid.CellClick += ChildGridCellClick;
             childGrid.CellDoubleClick += ChildGridCellDoubleClick;
@@ -58,7 +65,7 @@ namespace FamilyView
                 }
                 else
                 {
-                    var Who = _dataset.children[dex];
+                    var Who = _dataset.children[dex].primary;
                     MessageBox.Show(Who.Fullname, "Editing person");
                 }
             }
@@ -71,7 +78,17 @@ namespace FamilyView
                 var dex = e.RowIndex;
                 if (dex < 0)
                     return;
-                changePerson(_dataset.children[dex].who);
+                if (dex >= _dataset.children.Count)
+                    addChild();
+                else
+                    changePerson(_dataset.children[dex].primary.who);
+            }
+            if (e.ColumnIndex == 5)
+            {
+                var dex = e.RowIndex;
+                if (dex < 0)
+                    return;
+                changePerson(_dataset.children[dex].spouse.Value.who);
             }
         }
 
@@ -143,6 +160,8 @@ namespace FamilyView
             Primary.HasMedia = _dataset.primary.who.Indi.Media.Count > 0; // TODO better accessor!
             Primary.HasSours = _dataset.primary.who.Indi.Cits.Count > 0; // TODO better accessor!
 
+            Primary.HasNotes = Primary.HasMedia = Primary.HasSours = true;
+
             Spouse.Who = _dataset.spouse;
             Spouse.Text = buildLines(_dataset.spouse);
             if (_dataset.spouse.HasValue)
@@ -150,6 +169,8 @@ namespace FamilyView
                 Spouse.HasNotes = _dataset.spouse.Value.who.Indi.Notes.Count > 0; // TODO better accessor!
                 Spouse.HasMedia = _dataset.spouse.Value.who.Indi.Media.Count > 0; // TODO better accessor!
                 Spouse.HasSours = _dataset.spouse.Value.who.Indi.Cits.Count > 0; // TODO better accessor!
+
+                Spouse.HasNotes = Spouse.HasMedia = Spouse.HasSours = true;
             }
             else
             {
@@ -160,21 +181,46 @@ namespace FamilyView
             if (_dataset.children != null)
             {
                 int i = 0;
-                foreach (var child in _dataset.children)
+                foreach (var childDS in _dataset.children)
                 {
-                    childGrid.Rows.Add(new object[] {null, child.Fullname, child.BirthYear, child.DeathYear});
+                    var child = childDS.primary;
+
+                    childGrid.Rows.Add(new object[] { "t", child.Fullname, child.BirthYear, child.DeathYear, null, null});
+
+                    string spouse = "";
+                    if (childDS.spouse.HasValue)
+                    {
+                        spouse = childDS.spouse.Value.Fullname;
+                    }
+                    else
+                    {
+                        spouse = "";
+                        childGrid.Rows[i].Cells[5].Style = _hideBtn;
+                        childGrid.Rows[i].Cells[5].ToolTipText = "";
+                    }
+                    childGrid.Rows[i].Cells[4].Value = spouse;
+
                     childGrid.Rows[i].Height = 25;
                     childGrid.Rows[i].Cells[2].ToolTipText = child.Birth;
                     childGrid.Rows[i].Cells[3].ToolTipText = child.Death;
 
+                    childGrid.Rows[i].Cells[6].Value = child.HasMMarr;
                     i++;
                 }
 
-                // TODO consider an 'add' button instead?
-                childGrid.Rows.Add(new object[] {null, "", "", ""});
+                // Provide an 'add' button
+                childGrid.Rows.Add(new object[] { "É", "Add a new child", "", "", "" });
                 childGrid.Rows[i].Height = 25;
-                childGrid.Rows[i].Cells[0].Style = _hideBtn;
-                childGrid.Rows[i].Cells[0].ToolTipText = "";
+                //childGrid.Rows[i].Cells[0].Style = _hideBtn;
+                //childGrid.Rows[i].Cells[0].ToolTipText = "";
+                childGrid.Rows[i].Cells[0].Style = _addBtn;
+                _addBtn.Font = _addFont;
+                childGrid.Rows[i].Cells[1].Style = _addChld;
+                childGrid.Rows[i].Cells[5].Style = _hideBtn;
+                childGrid.Rows[i].Cells[5].ToolTipText = "";
+                childGrid.Rows[i].Cells[6].Style = _hideBtn;
+                childGrid.Rows[i].Cells[6].ToolTipText = "";
+
             }
         }
 
@@ -188,6 +234,10 @@ namespace FamilyView
 
         // A style used to hide the "goto" button in the datagridview
         private DataGridViewCellStyle _hideBtn = new DataGridViewCellStyle() {Padding = new Padding(100,0,0,0)};
+        private DataGridViewCellStyle _addChld = new DataGridViewCellStyle() { ForeColor = Color.DarkGray};
+        private Font _addFont = new Font("Wingdings 2", 9.75F, FontStyle.Regular, GraphicsUnit.Point, ((byte)(2)));
+
+        private DataGridViewCellStyle _addBtn = new DataGridViewCellStyle();
 
         protected string oneLine(PData? p)
         {
@@ -211,6 +261,11 @@ namespace FamilyView
         {
             sDad.Selected = sMom.Selected = false;
             base.CoordinateSelection(sender);
+        }
+
+        private void addChild()
+        {
+            MessageBox.Show("Add new child");
         }
     }
 }

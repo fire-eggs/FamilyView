@@ -41,29 +41,34 @@ namespace FamilyView
             changePerson(_dataset.pMom.who);
         }
 
+        private void goChild(int index)
+        {
+            changePerson(_dataset.children[index].primary.who);
+        }
+
         private void goChild1_Click(object sender, EventArgs e)
         {
-            changePerson(_dataset.children[0].who);
+            goChild(0);
         }
 
         private void goChild2_Click(object sender, EventArgs e)
         {
-            changePerson(_dataset.children[1].who);
+            goChild(1);
         }
 
         private void goChild3_Click(object sender, EventArgs e)
         {
-            changePerson(_dataset.children[2].who);
+            goChild(2);
         }
 
         private void goChild4_Click(object sender, EventArgs e)
         {
-            changePerson(_dataset.children[3].who);
+            goChild(3);
         }
 
         private void goChild5_Click(object sender, EventArgs e)
         {
-            changePerson(_dataset.children[4].who);
+            goChild(4);
         }
 
         protected override void SetContents()

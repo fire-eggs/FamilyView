@@ -30,6 +30,7 @@
         {
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle1 = new System.Windows.Forms.DataGridViewCellStyle();
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle2 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle3 = new System.Windows.Forms.DataGridViewCellStyle();
             this.goDad = new System.Windows.Forms.Button();
             this.Marr = new System.Windows.Forms.TextBox();
             this.label1 = new System.Windows.Forms.Label();
@@ -47,13 +48,14 @@
             this.Mom = new FamilyView.TBox();
             this.sDad = new FamilyView.TBox();
             this.sMom = new FamilyView.TBox();
-            this.btnMarriages = new System.Windows.Forms.Button();
-            this.btnSMarriages = new System.Windows.Forms.Button();
             this.childGrid = new System.Windows.Forms.DataGridView();
             this.navTo = new System.Windows.Forms.DataGridViewButtonColumn();
             this.cName = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.bDate = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.dDate = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.cSpouseName = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.navToSpouse = new System.Windows.Forms.DataGridViewButtonColumn();
+            this.cMMarr = new System.Windows.Forms.DataGridViewCheckBoxColumn();
             this.label7 = new System.Windows.Forms.Label();
             this.label8 = new System.Windows.Forms.Label();
             this.label9 = new System.Windows.Forms.Label();
@@ -284,28 +286,6 @@
             this.sMom.TabStop = false;
             this.sMom.Who = null;
             // 
-            // btnMarriages
-            // 
-            this.btnMarriages.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnMarriages.Location = new System.Drawing.Point(502, 128);
-            this.btnMarriages.Name = "btnMarriages";
-            this.btnMarriages.Size = new System.Drawing.Size(113, 23);
-            this.btnMarriages.TabIndex = 15;
-            this.btnMarriages.Text = "Other Marriages...";
-            this.btnMarriages.UseVisualStyleBackColor = true;
-            this.btnMarriages.Visible = false;
-            // 
-            // btnSMarriages
-            // 
-            this.btnSMarriages.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnSMarriages.Location = new System.Drawing.Point(502, 279);
-            this.btnSMarriages.Name = "btnSMarriages";
-            this.btnSMarriages.Size = new System.Drawing.Size(113, 23);
-            this.btnSMarriages.TabIndex = 15;
-            this.btnSMarriages.Text = "Other Marriages...";
-            this.btnSMarriages.UseVisualStyleBackColor = true;
-            this.btnSMarriages.Visible = false;
-            // 
             // childGrid
             // 
             this.childGrid.AllowUserToAddRows = false;
@@ -324,7 +304,10 @@
             this.navTo,
             this.cName,
             this.bDate,
-            this.dDate});
+            this.dDate,
+            this.cSpouseName,
+            this.navToSpouse,
+            this.cMMarr});
             this.childGrid.EditMode = System.Windows.Forms.DataGridViewEditMode.EditProgrammatically;
             this.childGrid.Location = new System.Drawing.Point(43, 317);
             this.childGrid.MultiSelect = false;
@@ -345,6 +328,7 @@
             this.navTo.MinimumWidth = 25;
             this.navTo.Name = "navTo";
             this.navTo.ReadOnly = true;
+            this.navTo.Resizable = System.Windows.Forms.DataGridViewTriState.False;
             this.navTo.Width = 40;
             // 
             // cName
@@ -371,6 +355,34 @@
             this.dDate.Name = "dDate";
             this.dDate.ReadOnly = true;
             this.dDate.Width = 75;
+            // 
+            // cSpouseName
+            // 
+            this.cSpouseName.HeaderText = "Spouse";
+            this.cSpouseName.MinimumWidth = 50;
+            this.cSpouseName.Name = "cSpouseName";
+            this.cSpouseName.ReadOnly = true;
+            this.cSpouseName.Width = 200;
+            // 
+            // navToSpouse
+            // 
+            dataGridViewCellStyle3.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
+            dataGridViewCellStyle3.Font = new System.Drawing.Font("Wingdings 3", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(2)));
+            this.navToSpouse.DefaultCellStyle = dataGridViewCellStyle3;
+            this.navToSpouse.HeaderText = "";
+            this.navToSpouse.MinimumWidth = 25;
+            this.navToSpouse.Name = "navToSpouse";
+            this.navToSpouse.ReadOnly = true;
+            this.navToSpouse.Resizable = System.Windows.Forms.DataGridViewTriState.False;
+            this.navToSpouse.Width = 40;
+            // 
+            // cMMarr
+            // 
+            this.cMMarr.FalseValue = "false";
+            this.cMMarr.HeaderText = "Multi";
+            this.cMMarr.Name = "cMMarr";
+            this.cMMarr.ReadOnly = true;
+            this.cMMarr.TrueValue = "true";
             // 
             // label7
             // 
@@ -433,8 +445,6 @@
             this.Controls.Add(this.label9);
             this.Controls.Add(this.Marr);
             this.Controls.Add(this.childGrid);
-            this.Controls.Add(this.btnSMarriages);
-            this.Controls.Add(this.btnMarriages);
             this.Controls.Add(this.sMom);
             this.Controls.Add(this.sDad);
             this.Controls.Add(this.Mom);
@@ -482,17 +492,18 @@
         private TBox Mom;
         private TBox sDad;
         private TBox sMom;
-        private System.Windows.Forms.Button btnMarriages;
-        private System.Windows.Forms.Button btnSMarriages;
         private System.Windows.Forms.DataGridView childGrid;
-        private System.Windows.Forms.DataGridViewButtonColumn navTo;
-        private System.Windows.Forms.DataGridViewTextBoxColumn cName;
-        private System.Windows.Forms.DataGridViewTextBoxColumn bDate;
-        private System.Windows.Forms.DataGridViewTextBoxColumn dDate;
         private System.Windows.Forms.Label label7;
         private System.Windows.Forms.Label label8;
         private System.Windows.Forms.Label label9;
         private SplitButton splitButton1;
         private SplitButton splitButton2;
+        private System.Windows.Forms.DataGridViewButtonColumn navTo;
+        private System.Windows.Forms.DataGridViewTextBoxColumn cName;
+        private System.Windows.Forms.DataGridViewTextBoxColumn bDate;
+        private System.Windows.Forms.DataGridViewTextBoxColumn dDate;
+        private System.Windows.Forms.DataGridViewTextBoxColumn cSpouseName;
+        private System.Windows.Forms.DataGridViewButtonColumn navToSpouse;
+        private System.Windows.Forms.DataGridViewCheckBoxColumn cMMarr;
     }
 }

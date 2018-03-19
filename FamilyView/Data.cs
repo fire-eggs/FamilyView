@@ -26,7 +26,7 @@ namespace FamilyView
             public PData sDad;
             public PData sMom;
             public string marriage;
-            public List<PData> children;
+            public List<DataSet> children;
         }
 
     class Data
@@ -36,8 +36,12 @@ namespace FamilyView
             if (firstP == null)
                 return null;
 
+            return fetchData(firstP, true);
+        }
+
+        private static DataSet fetchData(Person firstP, bool doParents)
+        {
             var baseData = new DataSet();
-            baseData.children = new List<PData>();
 
             baseData.primary = doPerson(firstP);
 
@@ -49,38 +53,50 @@ namespace FamilyView
                 {
                     baseData.spouse = doPerson(spouse);
 
-                    var sFam = spouse.ChildIn.FirstOrDefault();
-                    if (sFam != null)
+                    if (doParents)
                     {
-                        if (sFam.Husband != null)
-                            baseData.sDad = doPerson(sFam.Husband);
-                        if (sFam.Wife != null)
-                            baseData.sMom = doPerson(sFam.Wife);
+                        var sFam = spouse.ChildIn.FirstOrDefault();
+                        if (sFam != null)
+                        {
+                            if (sFam.Husband != null)
+                                baseData.sDad = doPerson(sFam.Husband);
+                            if (sFam.Wife != null)
+                                baseData.sMom = doPerson(sFam.Wife);
+                        }
                     }
                 }
                 var mDate = marr.MarriageDate;
                 baseData.marriage = mDate == null ? "" : mDate.ToString();
 
-                foreach (var child in marr.Childs)
-                {
-                    baseData.children.Add(doPerson(child));
-                }
+                baseData.children = doChildren(marr.Childs);
             }
             else
             {
                 baseData.spouse = null;
             }
 
-            var fam = firstP.ChildIn.FirstOrDefault();
-            if (fam != null)
+            if (doParents)
             {
-                if (fam.Husband != null)
-                    baseData.pDad = doPerson(fam.Husband);
-                if (fam.Wife != null)
-                    baseData.pMom = doPerson(fam.Wife);
+                var fam = firstP.ChildIn.FirstOrDefault();
+                if (fam != null)
+                {
+                    if (fam.Husband != null)
+                        baseData.pDad = doPerson(fam.Husband);
+                    if (fam.Wife != null)
+                        baseData.pMom = doPerson(fam.Wife);
+                }
             }
-
             return baseData;
+        }
+
+        private static List<DataSet> doChildren(HashSet<Person> childs)
+        {
+            var clist = new List<DataSet>();
+            foreach (var child in childs)
+            {
+                clist.Add(fetchData(child, false));
+            }
+            return clist;
         }
 
         private static PData doPerson(Person p)

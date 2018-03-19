@@ -59,7 +59,7 @@ namespace FamilyView
                 {
                     foreach (var child in _dataset.children)
                     {
-                        _childs.Items.Add(child.Fullname);
+                        _childs.Items.Add(child.primary.Fullname);
                     }
                     nchil = _dataset.children.Count;
                 }
