@@ -30,6 +30,7 @@ namespace FamilyView
         private string _path; // Path to GED
         private bool _gedLoadOK;
         private bool _gedFound;
+        private DataSet _baseData;
 
         public Form1()
         {
@@ -115,6 +116,11 @@ namespace FamilyView
             var v1 = new View4(_baseData);
             v1.Show(this);
         }
+        private void view4a_Click(object sender, EventArgs e)
+        {
+            var v1 = new View4a(_baseData);
+            v1.Show(this);
+        }
 
         private void setButtonStates()
         {
@@ -122,10 +128,9 @@ namespace FamilyView
             button2.Enabled = _gedLoadOK;
             button3.Enabled = _gedLoadOK;
             button4.Enabled = _gedLoadOK;
+            view4a.Enabled = _gedLoadOK;
             button6.Enabled = _gedFound;
         }
 
-
-        private DataSet _baseData;
     }
 }

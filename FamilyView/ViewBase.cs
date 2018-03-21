@@ -21,13 +21,14 @@ namespace FamilyView
         protected Button _goDad;
         protected Button _goMom;
 
-        protected ViewBase()
+        protected ViewBase() // designer required
         {
         }
 
         public ViewBase(DataSet baseData)
         {
-            _dataset = baseData;           
+            _dataset = baseData;
+            ShowInTaskbar = false;
         }
 
         protected string buildLines(PData? p)
@@ -101,7 +102,10 @@ namespace FamilyView
                 _primary.Selected = false;
             if (_spouse != null)
                 _spouse.Selected = false;
-            _dad.Selected = _mom.Selected = false;
+            if (_dad != null)
+                _dad.Selected = false;
+            if (_mom != null)
+                _mom.Selected = false;
             //sDad.Selected = sMom.Selected = false;
 
             selected.Selected = true;

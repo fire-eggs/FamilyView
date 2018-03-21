@@ -106,6 +106,12 @@
     <Compile Include="View4.Designer.cs">
       <DependentUpon>View4.cs</DependentUpon>
     </Compile>
+    <Compile Include="View4a.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="View4a.Designer.cs">
+      <DependentUpon>View4a.cs</DependentUpon>
+    </Compile>
     <Compile Include="ViewBase.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -140,6 +146,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="View4.resx">
       <DependentUpon>View4.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="View4a.resx">
+      <DependentUpon>View4a.cs</DependentUpon>
     </EmbeddedResource>
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
