@@ -438,7 +438,6 @@
             // 
             // tboxPDad2
             // 
-            this.tboxPDad2.Key = null;
             this.tboxPDad2.Location = new System.Drawing.Point(460, 114);
             this.tboxPDad2.Margin = new System.Windows.Forms.Padding(4);
             this.tboxPDad2.Name = "tboxPDad2";

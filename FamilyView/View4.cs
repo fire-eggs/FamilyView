@@ -11,11 +11,6 @@ namespace FamilyView
 {
     public partial class View4 : ViewBase
     {
-        //private View4()
-        //{
-        //    InitializeComponent();
-        //}
-
         public View4(DataSet baseData) : base(baseData)
         {
             InitializeComponent();
@@ -111,7 +106,7 @@ namespace FamilyView
 
             tboxPDad2.Text = oneLine(_dataset.pDad);
             tboxPDad2.Who = _dataset.pDad;
-            tboxPDad2.Key = 1; // TODO establish via designer
+            tboxPDad2.Key = PersonArgs.ParentKey.PrimaryDad; // TODO establish via designer
 
             _mom.Text = oneLine(_dataset.pMom);
 
