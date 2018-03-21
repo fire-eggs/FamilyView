@@ -1,32 +1,56 @@
-﻿using System.Drawing;
+﻿using System;
+using System.Drawing;
 using System.Windows.Forms;
 
 namespace FamilyView
 {
-    public partial class PersonDataBox : UserControl
+    public partial class PersonDataBox2 : UserControl
     {
+        public event EventHandler Person;
+        public event EventHandler Selected;
+
         private bool _selected;
 
-        public PersonDataBox()
+        public PersonDataBox2()
         {
             InitializeComponent();
+
+            label1.Click += label1_Click;
+            label1.DoubleClick += label1_DoubleClick;
+            panel1.Click += label1_Click;
+            panel1.DoubleClick += label1_DoubleClick;
         }
 
-        public ViewBase Owner { get; set; }
-
-        public bool ReadOnly
+        void label1_DoubleClick(object sender, EventArgs e)
         {
-            get { return textBox1.ReadOnly; }
-            set { textBox1.ReadOnly = value; }
+            Raise(Who.HasValue ? PersonArgs.EventType.Edit : PersonArgs.EventType.Add);
         }
 
-        public bool Selected
+        private void Raise(PersonArgs.EventType which)
+        {
+            if (Person == null)
+                return;
+            var pea = new PersonArgs();
+            pea.Which = which;
+            pea.Who = Who;
+            Person(this, pea);
+        }
+
+        void label1_Click(object sender, EventArgs e)
+        {
+            if (Selected != null)
+                Selected(this, null);
+        }
+
+        public bool IsSelected
         {
             get { return _selected; }
             set
             {
                 _selected = value;
-                DrawSelected(value);
+                label1.ForeColor = _selected ? _selFore : _normFore;
+                label1.BackColor = _selected ? _selBack : _normBack;
+                panel1.BackColor = _selected ? _selBack : _normBack;
             }
         }
 
@@ -40,16 +64,9 @@ namespace FamilyView
         private bool _hasMedia;
         private bool _hasSours;
 
-        private void DrawSelected(bool selected)
-        {
-            textBox1.ForeColor = selected ? _selFore : _normFore;
-            textBox1.BackColor = selected ? _selBack : _normBack;
-        }
-
         public override string Text
         {
-            get { return textBox1.Text; }
-            set { textBox1.Text = value; }
+            set { label1.Text = value; }
         }
 
         public bool HasNotes

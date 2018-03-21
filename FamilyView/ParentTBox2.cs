@@ -10,10 +10,12 @@ namespace FamilyView
         private static Font _goFont = new Font("Wingdings 3", 9.75F, FontStyle.Regular, GraphicsUnit.Point, ((byte)(2)));
 
         public event EventHandler Person;
+        public event EventHandler Selected;
 
         private PData? _who;
         private bool _isgo;  // TODO use EventType as 'state' instead?
         private bool _isEdit;
+        private bool _selected;
 
         public ParentTBox2()
         {
@@ -21,16 +23,18 @@ namespace FamilyView
 
             btnGo.Click += OnGoClick;
             label1.DoubleClick += OnDClick;
+            label1.Click += label1_Click;
+            panel1.DoubleClick += OnDClick;
+            panel1.Click += label1_Click;
         }
 
-        public enum EventType
+        void label1_Click(object sender, EventArgs e)
         {
-            Go,
-            Add,
-            Edit
-        };
+            if (Selected != null)
+                Selected(this, null);
+        }
 
-        private void Raise(EventType which)
+        private void Raise(PersonArgs.EventType which)
         {
             if (Person == null)
                 return;
@@ -45,21 +49,21 @@ namespace FamilyView
         {
             if (!_isgo) // add
             {
-                Raise(EventType.Add);
+                Raise(PersonArgs.EventType.Add);
             }
             else if (_isEdit) // not add, edit
             {
-                Raise(EventType.Edit);
+                Raise(PersonArgs.EventType.Edit);
             }
             else // go, not edit
             {
-                Raise(EventType.Go);
+                Raise(PersonArgs.EventType.Go);
             }
         }
 
         private void OnDClick(object sender, EventArgs e)
         {
-            Raise(_isgo ? EventType.Edit : EventType.Add);
+            Raise(_isgo ? PersonArgs.EventType.Edit : PersonArgs.EventType.Add);
         }
 
         public PData? Who 
@@ -111,10 +115,34 @@ namespace FamilyView
                 UpdateButton();
             }
         }
+
+        private Color _normBack = Color.White;
+        private Color _normFore = Color.Black;
+        private Color _selBack = Color.CornflowerBlue;
+        private Color _selFore = Color.White;
+
+        public bool IsSelected
+        {
+            set
+            {
+                _selected = value;
+
+                label1.ForeColor = _selected ? _selFore : _normFore;
+                label1.BackColor = _selected ? _selBack : _normBack;
+                panel1.BackColor = _selected ? _selBack : _normBack;
+            }
+        }
     }
 
     public class PersonArgs : EventArgs // TODO to separate file?
     {
+        public enum EventType
+        {
+            Go,
+            Add,
+            Edit
+        };
+
         public enum ParentKey
         {
             PrimaryDad,
@@ -125,7 +153,7 @@ namespace FamilyView
 
         public ParentKey Key { get; set; } 
         public PData? Who { get; set; } // TODO declare as object instead?
-        public ParentTBox2.EventType Which { get; set; }
+        public PersonArgs.EventType Which { get; set; }
     }
 
 }

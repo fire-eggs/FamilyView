@@ -3,11 +3,13 @@ using System.Drawing;
 using System.Windows.Forms;
 using GEDWrap;
 
+// ReSharper disable InconsistentNaming
+
 namespace FamilyView
 {
-    public partial class View4a : ViewBase
+    public partial class View4a : ViewBase // TODO does ViewBase provide anything useful now?
     {
-        private bool _editMode = false;
+        private bool _editMode; // Is the form in edit mode or not
 
         public View4a(DataSet baseData) : base(baseData)
         {
@@ -20,17 +22,15 @@ namespace FamilyView
             dgvbc.Text = "t";
             dgvbc.UseColumnTextForButtonValue = false;
             dgvbc.Resizable = DataGridViewTriState.False;
-            dgvbc.ToolTipText = "Make this child the primary";
+            dgvbc.ToolTipText = "Make this child the primary"; // TODO -> cell.TooltipText
 
             // 'goto' button in column 5 of grid
             dgvbc = (childGrid.Columns[5] as DataGridViewButtonColumn);
             dgvbc.Text = "t";
             dgvbc.UseColumnTextForButtonValue = true;
             dgvbc.Resizable = DataGridViewTriState.False;
-            dgvbc.ToolTipText = "Make this child's spouse the primary";
+            dgvbc.ToolTipText = "Make this child's spouse the primary";// TODO -> cell.TooltipText
             
-            childGrid.CellClick += ChildGridCellClick;
-            childGrid.CellDoubleClick += ChildGridCellDoubleClick;
             SetContents();
         }
 
@@ -124,54 +124,72 @@ namespace FamilyView
             Primary.HasMedia = _dataset.primary.who.Indi.Media.Count > 0; // TODO better accessor!
             Primary.HasSours = _dataset.primary.who.Indi.Cits.Count > 0; // TODO better accessor!
 
-            Primary.HasNotes = Primary.HasMedia = Primary.HasSours = true;
+            Primary.HasNotes = Primary.HasMedia = Primary.HasSours = true; // TODO for debug
 
             doSpouse(_dataset.spouse);
 
             childGrid.Rows.Clear();
-            if (_dataset.children != null)
+            if (_dataset.children == null) 
+                return;
+
+
+            int i = 0;
+            foreach (var childDS in _dataset.children)
             {
-                int i = 0;
-                foreach (var childDS in _dataset.children)
+                var child = childDS.primary;
+
+                childGrid.Rows.Add(new object[] { "t", child.Fullname, child.BirthYear, child.DeathYear, null, null});
+
+                childGrid.Rows[i].Cells[0].ToolTipText = "Goto child";
+
+                string spouse;
+                if (childDS.spouse.HasValue)
                 {
-                    var child = childDS.primary;
-
-                    childGrid.Rows.Add(new object[] { "t", child.Fullname, child.BirthYear, child.DeathYear, null, null});
-
-                    string spouse = "";
-                    if (childDS.spouse.HasValue)
-                    {
-                        spouse = childDS.spouse.Value.Fullname;
-                    }
-                    else
-                    {
-                        spouse = "";
-                        childGrid.Rows[i].Cells[5].Style = _hideBtn;
-                        childGrid.Rows[i].Cells[5].ToolTipText = "";
-                    }
-                    childGrid.Rows[i].Cells[4].Value = spouse;
-
-                    childGrid.Rows[i].Height = 25;
-                    childGrid.Rows[i].Cells[2].ToolTipText = child.Birth;
-                    childGrid.Rows[i].Cells[3].ToolTipText = child.Death;
-
-                    childGrid.Rows[i].Cells[6].Value = child.HasMMarr;
-                    i++;
+                    spouse = childDS.spouse.Value.Fullname;
+                    childGrid.Rows[i].Cells[5].ToolTipText = "Goto spouse";
                 }
+                else
+                {
+                    spouse = "";
+                    childGrid.Rows[i].Cells[5].Style = _hideBtn;
+                    childGrid.Rows[i].Cells[5].ToolTipText = "";
+                }
+                childGrid.Rows[i].Cells[4].Value = spouse;
 
-                // Provide an 'add' button
-                childGrid.Rows.Add(new object[] { "É", "Add a new child", "", "", "" });
                 childGrid.Rows[i].Height = 25;
-                //childGrid.Rows[i].Cells[0].Style = _hideBtn;
-                //childGrid.Rows[i].Cells[0].ToolTipText = "";
-                childGrid.Rows[i].Cells[0].Style = _addBtn;
-                _addBtn.Font = _addFont;
-                childGrid.Rows[i].Cells[1].Style = _addChld;
-                childGrid.Rows[i].Cells[5].Style = _hideBtn;
-                childGrid.Rows[i].Cells[5].ToolTipText = "";
-                childGrid.Rows[i].Cells[6].Style = _hideBtn;
-                childGrid.Rows[i].Cells[6].ToolTipText = "";
+                childGrid.Rows[i].Cells[2].ToolTipText = child.Birth;
+                childGrid.Rows[i].Cells[3].ToolTipText = child.Death;
 
+                childGrid.Rows[i].Cells[6].Value = child.HasMMarr;
+                i++;
+            }
+
+            // Provide an 'add' button
+            childGrid.Rows.Add(new object[] { "É", "Add a new child", "", "", "" });
+            childGrid.Rows[i].Height = 25;
+            //childGrid.Rows[i].Cells[0].Style = _hideBtn;
+            childGrid.Rows[i].Cells[0].ToolTipText = "Add a new child";
+            childGrid.Rows[i].Cells[0].Style = _addBtn;
+            _addBtn.Font = _addFont;
+            childGrid.Rows[i].Cells[1].Style = _addChld;
+            childGrid.Rows[i].Cells[5].Style = _hideBtn;
+            childGrid.Rows[i].Cells[5].ToolTipText = "";
+            childGrid.Rows[i].Cells[6].Style = _hideBtn;
+            childGrid.Rows[i].Cells[6].ToolTipText = "";
+        }
+
+        private void selectedEvent(object sender, EventArgs e)
+        {
+            tboxPDad2.IsSelected = tboxPMom.IsSelected = tboxSDad.IsSelected = tboxSMom.IsSelected = false;
+            Primary.IsSelected = Spouse.IsSelected = false;
+            ParentTBox2 tb = sender as ParentTBox2; // TODO 'selectable' common class
+            if (tb != null)
+                tb.IsSelected = true;
+            else
+            {
+                PersonDataBox2 tb2 = sender as PersonDataBox2;
+                if (tb2 != null)
+                    tb2.IsSelected = true;
             }
         }
 
@@ -184,13 +202,13 @@ namespace FamilyView
                 return;
             switch (pea.Which)
             {
-                case ParentTBox2.EventType.Add:
+                case PersonArgs.EventType.Add:
                     MessageBox.Show(this, "Add key " + pea.Key + " For " + _dataset.primary.Fullname, "Add person");
                     break;
-                case ParentTBox2.EventType.Go:
+                case PersonArgs.EventType.Go:
                     changePerson(pea.Who.Value.who);
                     break;
-                case ParentTBox2.EventType.Edit:
+                case PersonArgs.EventType.Edit:
                     MessageBox.Show(this, "Edit " + pea.Who.Value.Fullname, "Edit person");
                     break;
             }

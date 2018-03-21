@@ -61,7 +61,6 @@
             this.label9 = new System.Windows.Forms.Label();
             this.splitButton1 = new FamilyView.SplitButton();
             this.splitButton2 = new FamilyView.SplitButton();
-            this.tboxPDad2 = new FamilyView.ParentTBox2();
             ((System.ComponentModel.ISupportInitialize)(this.childGrid)).BeginInit();
             this.SuspendLayout();
             // 
@@ -153,7 +152,6 @@
             this.Primary.HasSours = false;
             this.Primary.Location = new System.Drawing.Point(39, 19);
             this.Primary.Margin = new System.Windows.Forms.Padding(4);
-            this.Primary.Multiline = true;
             this.Primary.Name = "Primary";
             this.Primary.Owner = null;
             this.Primary.ReadOnly = true;
@@ -173,7 +171,6 @@
             this.Spouse.HasSours = false;
             this.Spouse.Location = new System.Drawing.Point(57, 191);
             this.Spouse.Margin = new System.Windows.Forms.Padding(4);
-            this.Spouse.Multiline = true;
             this.Spouse.Name = "Spouse";
             this.Spouse.Owner = null;
             this.Spouse.ReadOnly = true;
@@ -436,20 +433,11 @@
             this.splitButton2.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             this.splitButton2.UseVisualStyleBackColor = true;
             // 
-            // tboxPDad2
-            // 
-            this.tboxPDad2.Location = new System.Drawing.Point(460, 114);
-            this.tboxPDad2.Margin = new System.Windows.Forms.Padding(4);
-            this.tboxPDad2.Name = "tboxPDad2";
-            this.tboxPDad2.Size = new System.Drawing.Size(332, 22);
-            this.tboxPDad2.TabIndex = 20;
-            // 
             // View4
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(820, 458);
-            this.Controls.Add(this.tboxPDad2);
             this.Controls.Add(this.splitButton2);
             this.Controls.Add(this.splitButton1);
             this.Controls.Add(this.label9);
@@ -515,6 +503,5 @@
         private System.Windows.Forms.DataGridViewTextBoxColumn cSpouseName;
         private System.Windows.Forms.DataGridViewButtonColumn navToSpouse;
         private System.Windows.Forms.DataGridViewCheckBoxColumn cMMarr;
-        private ParentTBox2 tboxPDad2;
     }
 }

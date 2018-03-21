@@ -1,10 +1,6 @@
 ﻿using System;
 using System.Drawing;
 using System.Windows.Forms;
-
-// TODO winforms dropdown-button for 'other marriages'
-// TODO MVC variant
-// TODO how to make 'add new' functionality more obvious ['Add' btn in grid;'Add' btn in PersonDataBox?;parents?]
 using GEDWrap;
 
 namespace FamilyView
@@ -45,8 +41,6 @@ namespace FamilyView
             childGrid.CellClick += ChildGridCellClick;
             childGrid.CellDoubleClick += ChildGridCellDoubleClick;
             SetContents();
-
-            tboxPDad2.Person += personEvent; // NOTE reminder: if done in SetContents will get multiple events!!!
         }
 
         void ChildGridCellDoubleClick(object sender, DataGridViewCellEventArgs e)
@@ -103,11 +97,6 @@ namespace FamilyView
         protected override void SetContents()
         {
             _dad.Text = oneLine(_dataset.pDad);
-
-            tboxPDad2.Text = oneLine(_dataset.pDad);
-            tboxPDad2.Who = _dataset.pDad;
-            tboxPDad2.Key = PersonArgs.ParentKey.PrimaryDad; // TODO establish via designer
-
             _mom.Text = oneLine(_dataset.pMom);
 
             sDad.Text = oneLine(_dataset.sDad);
@@ -211,25 +200,6 @@ namespace FamilyView
                 childGrid.Rows[i].Cells[6].Style = _hideBtn;
                 childGrid.Rows[i].Cells[6].ToolTipText = "";
 
-            }
-        }
-
-        private void personEvent(object sender, EventArgs e)
-        {
-            var pea = e as PersonArgs;
-            if (pea == null)
-                return;
-            switch (pea.Which)
-            {
-                case ParentTBox2.EventType.Add:
-                    MessageBox.Show(this, "Add key " + pea.Key + " For " + _dataset.primary.Fullname, "Add person");
-                    break;
-                case ParentTBox2.EventType.Go:
-                    changePerson(pea.Who.Value.who);
-                    break;
-                case ParentTBox2.EventType.Edit:
-                    MessageBox.Show(this, "Edit " + pea.Who.Value.Fullname, "Edit person");
-                    break;
             }
         }
 

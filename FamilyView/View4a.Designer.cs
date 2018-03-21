@@ -33,8 +33,8 @@
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle3 = new System.Windows.Forms.DataGridViewCellStyle();
             this.Marr = new System.Windows.Forms.TextBox();
             this.label1 = new System.Windows.Forms.Label();
-            this.Primary = new FamilyView.PersonDataBox();
-            this.Spouse = new FamilyView.PersonDataBox();
+            this.Primary = new FamilyView.PersonDataBox2();
+            this.Spouse = new FamilyView.PersonDataBox2();
             this.label3 = new System.Windows.Forms.Label();
             this.label4 = new System.Windows.Forms.Label();
             this.label5 = new System.Windows.Forms.Label();
@@ -94,17 +94,16 @@
             this.Primary.HasMedia = false;
             this.Primary.HasNotes = false;
             this.Primary.HasSours = false;
+            this.Primary.IsSelected = false;
             this.Primary.Location = new System.Drawing.Point(19, 17);
             this.Primary.Margin = new System.Windows.Forms.Padding(4);
-            this.Primary.Multiline = true;
             this.Primary.Name = "Primary";
-            this.Primary.Owner = null;
-            this.Primary.ReadOnly = true;
-            this.Primary.Selected = false;
             this.Primary.Size = new System.Drawing.Size(388, 85);
             this.Primary.TabIndex = 7;
             this.Primary.TabStop = false;
             this.Primary.Who = null;
+            this.Primary.Person += new System.EventHandler(this.personEvent);
+            this.Primary.Selected += new System.EventHandler(this.selectedEvent);
             // 
             // Spouse
             // 
@@ -114,17 +113,16 @@
             this.Spouse.HasMedia = false;
             this.Spouse.HasNotes = false;
             this.Spouse.HasSours = false;
+            this.Spouse.IsSelected = false;
             this.Spouse.Location = new System.Drawing.Point(37, 178);
             this.Spouse.Margin = new System.Windows.Forms.Padding(4);
-            this.Spouse.Multiline = true;
             this.Spouse.Name = "Spouse";
-            this.Spouse.Owner = null;
-            this.Spouse.ReadOnly = true;
-            this.Spouse.Selected = false;
             this.Spouse.Size = new System.Drawing.Size(367, 85);
             this.Spouse.TabIndex = 8;
             this.Spouse.TabStop = false;
             this.Spouse.Who = null;
+            this.Spouse.Person += new System.EventHandler(this.personEvent);
+            this.Spouse.Selected += new System.EventHandler(this.selectedEvent);
             // 
             // label3
             // 
@@ -166,6 +164,7 @@
             // 
             this.childGrid.AllowUserToAddRows = false;
             this.childGrid.AllowUserToDeleteRows = false;
+            this.childGrid.AllowUserToResizeRows = false;
             this.childGrid.BackgroundColor = System.Drawing.SystemColors.Window;
             dataGridViewCellStyle1.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
             dataGridViewCellStyle1.BackColor = System.Drawing.SystemColors.Control;
@@ -192,9 +191,13 @@
             this.childGrid.ReadOnly = true;
             this.childGrid.RowHeadersVisible = false;
             this.childGrid.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.CellSelect;
+            this.childGrid.ShowCellErrors = false;
             this.childGrid.ShowEditingIcon = false;
+            this.childGrid.ShowRowErrors = false;
             this.childGrid.Size = new System.Drawing.Size(788, 196);
             this.childGrid.TabIndex = 16;
+            this.childGrid.CellClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.ChildGridCellClick);
+            this.childGrid.CellDoubleClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.ChildGridCellDoubleClick);
             // 
             // navTo
             // 
@@ -321,6 +324,7 @@
             this.tboxPDad2.Size = new System.Drawing.Size(332, 22);
             this.tboxPDad2.TabIndex = 20;
             this.tboxPDad2.Person += new System.EventHandler(this.personEvent);
+            this.tboxPDad2.Selected += new System.EventHandler(this.selectedEvent);
             // 
             // tableLayoutPanel1
             // 
@@ -385,6 +389,7 @@
             this.tboxSMom.Size = new System.Drawing.Size(332, 22);
             this.tboxSMom.TabIndex = 22;
             this.tboxSMom.Person += new System.EventHandler(this.personEvent);
+            this.tboxSMom.Selected += new System.EventHandler(this.selectedEvent);
             // 
             // tboxSDad
             // 
@@ -395,6 +400,7 @@
             this.tboxSDad.Size = new System.Drawing.Size(332, 22);
             this.tboxSDad.TabIndex = 22;
             this.tboxSDad.Person += new System.EventHandler(this.personEvent);
+            this.tboxSDad.Selected += new System.EventHandler(this.selectedEvent);
             // 
             // tboxPMom
             // 
@@ -405,6 +411,7 @@
             this.tboxPMom.Size = new System.Drawing.Size(332, 22);
             this.tboxPMom.TabIndex = 21;
             this.tboxPMom.Person += new System.EventHandler(this.personEvent);
+            this.tboxPMom.Selected += new System.EventHandler(this.selectedEvent);
             // 
             // button1
             // 
@@ -440,8 +447,8 @@
 
         private System.Windows.Forms.TextBox Marr;
         private System.Windows.Forms.Label label1;
-        private PersonDataBox Primary;
-        private PersonDataBox Spouse;
+        private PersonDataBox2 Primary;
+        private PersonDataBox2 Spouse;
         private System.Windows.Forms.Label label3;
         private System.Windows.Forms.Label label4;
         private System.Windows.Forms.Label label5;
