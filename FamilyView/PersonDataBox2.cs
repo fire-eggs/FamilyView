@@ -10,10 +10,15 @@ namespace FamilyView
         public event EventHandler Selected;
 
         private bool _selected;
+        private bool _isEdit;
+
+        private static Font _addFont = new Font("Wingdings 2", 9.75F, FontStyle.Regular, GraphicsUnit.Point, ((byte)(2)));
 
         public PersonDataBox2()
         {
             InitializeComponent();
+
+            btnNotesOrEdit.Font = _addFont;
 
             label1.Click += label1_Click;
             label1.DoubleClick += label1_DoubleClick;
@@ -75,7 +80,7 @@ namespace FamilyView
             set
             {
                 _hasNotes = value;
-                button1.Visible = value;
+                btnNotesOrEdit.Visible = value;
             }
         }
 
@@ -85,7 +90,7 @@ namespace FamilyView
             set
             {
                 _hasMedia = value;
-                button2.Visible = value;
+                btnMedia.Visible = value;
             }
         }
 
@@ -95,8 +100,50 @@ namespace FamilyView
             set
             {
                 _hasSours = value;
-                button3.Visible = value;
+                btnSources.Visible = value;
             }
+        }
+
+        public bool IsEdit
+        {
+            set
+            {
+                _isEdit = value;
+                UpdateButton();
+            }
+        }
+
+        private void UpdateButton()
+        {
+            btnSources.Visible = _hasSours & !_isEdit;
+            btnMedia.Visible = _hasMedia & !_isEdit;
+            btnNotesOrEdit.Visible = _hasNotes | _isEdit;
+            if (_hasNotes)
+            {
+                btnNotesOrEdit.BackgroundImage = FamilyView.Properties.Resources.notes_icon2_24;
+                btnNotesOrEdit.Text = "";
+            }
+            if (_isEdit)
+            {
+                btnNotesOrEdit.BackgroundImage = null;
+                btnNotesOrEdit.Text = "!";
+            }
+        }
+
+        private void btnNotesOrEdit_Click(object sender, EventArgs e)
+        {
+            // TODO 'Add' state!
+            Raise(_isEdit ? PersonArgs.EventType.Edit : PersonArgs.EventType.Notes);
+        }
+
+        private void btnMedia_Click(object sender, EventArgs e)
+        {
+            Raise(PersonArgs.EventType.Media);
+        }
+
+        private void btnSources_Click(object sender, EventArgs e)
+        {
+            Raise(PersonArgs.EventType.Sources);
         }
     }
 }
