@@ -161,6 +161,7 @@ namespace FamilyView
                 childGrid.Rows[i].Cells[3].ToolTipText = child.Death;
 
                 childGrid.Rows[i].Cells[6].Value = child.HasMMarr;
+                childGrid.Rows[i].Cells[7].Value = child.HasChilds;
                 i++;
             }
 
@@ -203,13 +204,22 @@ namespace FamilyView
             switch (pea.Which)
             {
                 case PersonArgs.EventType.Add:
-                    MessageBox.Show(this, "Add key " + pea.Key + " For " + _dataset.primary.Fullname, "Add person");
+                    MessageBox.Show(this, "Add " + pea.Key + " For " + _dataset.primary.Fullname, "Add person");
                     break;
                 case PersonArgs.EventType.Go:
                     changePerson(pea.Who.Value.who);
                     break;
                 case PersonArgs.EventType.Edit:
                     MessageBox.Show(this, "Edit " + pea.Who.Value.Fullname, "Edit person");
+                    break;
+                case PersonArgs.EventType.Notes:
+                    MessageBox.Show(this, "View notes for " + pea.Who.Value.Fullname, "Edit person");
+                    break;
+                case PersonArgs.EventType.Media:
+                    MessageBox.Show(this, "View media for " + pea.Who.Value.Fullname, "Edit person");
+                    break;
+                case PersonArgs.EventType.Sources:
+                    MessageBox.Show(this, "View sources for " + pea.Who.Value.Fullname, "Edit person");
                     break;
             }
         }
@@ -276,6 +286,8 @@ namespace FamilyView
         {
             _editMode = !_editMode;
             button1.Text = _editMode ? "Done edit" : "Edit";
+            Primary.IsEdit = _editMode;
+            Spouse.IsEdit = _editMode;
             tboxPDad2.IsEdit = _editMode; // TODO have control subscribe to button?
             tboxPMom.IsEdit = _editMode;
             tboxSDad.IsEdit = _editMode;

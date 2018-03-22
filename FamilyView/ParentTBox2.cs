@@ -140,7 +140,10 @@ namespace FamilyView
         {
             Go,
             Add,
-            Edit
+            Edit,
+            Notes,
+            Media,
+            Sources
         };
 
         public enum ParentKey

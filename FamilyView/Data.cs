@@ -13,6 +13,7 @@ namespace FamilyView
             public string DateRange;
             public bool HasParents;
             public bool HasMMarr;
+            public bool HasChilds;
             public string BirthYear { get; set; }
             public string DeathYear { get; set; }
         }
@@ -113,6 +114,7 @@ namespace FamilyView
             var pFam = p.ChildIn.FirstOrDefault();
             pd.HasParents = pFam != null && pFam.Husband != null && pFam.Wife != null;
             pd.HasMMarr = p.SpouseIn.Count() > 1;
+            pd.HasChilds = p.SpouseIn.Any() && p.SpouseIn.First().Childs.Count > 0;
 
             pd.BirthYear = p.GetYear("BIRT");
             pd.DeathYear = p.GetYear("DEAT");
